@@ -25,6 +25,30 @@ main {
   gap: 50px;
 }
 
+.list-of-books {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 900px;
+  min-height: 200px;
+  gap: 20px;
+  padding: 20px;
+  border: solid black 1px;
+}
+
+.book-card {
+  border: solid black 1px;
+  padding: 10px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  font-size: 1.2em;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
 footer {
   text-align: center;
 }
