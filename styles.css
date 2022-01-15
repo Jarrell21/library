@@ -49,6 +49,39 @@ button:hover {
   cursor: pointer;
 }
 
-footer {
+.popup-form {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  font-size: 1.4em;
+  width: 500px;
+  border: solid black 1px;
+  border-radius: 10px;
+  background-color: aliceblue;
+}
+
+.popup-form > h1 {
   text-align: center;
+  font-weight: normal;
+}
+
+.popup-form > input,
+button {
+  padding: 5px;
+  border: solid black 1px;
+  border-radius: 5px;
+}
+
+.popup-form > button {
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 0.7em;
+  font-weight: bold;
+}
+
+#add-btn {
+  background-color: rgb(255, 123, 123);
 }
