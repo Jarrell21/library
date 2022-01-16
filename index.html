@@ -11,30 +11,34 @@
   <body>
     <header>Library</header>
     <main>
-      <button id="add-book-btn">Add book</button>
+      <button id="addnew-book-btn" type="button">Add new book</button>
       <div class="list-of-books"></div>
-      <form class="popup-form">
-        <h1>Add book</h1>
+      <div id="disableDiv">
+        <form class="popup-form">
+          <h1>Add book</h1>
 
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required />
+          <label for="title">Title:</label>
+          <input type="text" id="title" name="title" required />
 
-        <label for="author">Author:</label>
-        <input type="text" id="author" name="author" required />
+          <label for="author">Author:</label>
+          <input type="text" id="author" name="author" required />
 
-        <label for="pages">Number of pages:</label>
-        <input type="number" min="1" id="pages" name="pages" required />
+          <label for="pages">Number of pages:</label>
+          <input type="number" min="1" id="pages" name="pages" required />
 
-        <p>Have you read the book?</p>
+          <p>Have you read the book?</p>
 
-        <input type="radio" name="read" id="yes" value="Yes" required />
-        <label for="yes">Yes</label>
-        <input type="radio" name="read" id="no" value="No" />
-        <label for="no">No</label>
+          <input type="radio" name="read" id="yes" value="Read" required />
+          <label for="yes">Yes</label>
+          <input type="radio" name="read" id="no" value="Not read" />
+          <label for="no">No</label>
 
-        <button id="add-btn">Add</button>
-        <button id="cancel-btn">Cancel</button>
-      </form>
+          <div id="buttons">
+            <button id="add-btn" type="button">Add</button>
+            <button id="cancel-btn" type="button">Cancel</button>
+          </div>
+        </form>
+      </div>
     </main>
   </body>
 </html>
