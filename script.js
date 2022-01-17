@@ -4,6 +4,7 @@ const listOfBooks = document.querySelector('.list-of-books');
 // Variables for the pop-up form when adding a book
 const disableDiv = document.querySelector('#disableDiv');
 const form = document.querySelector('.popup-form');
+const formHeader= document.querySelector('#form-header');
 const formTitleInput = document.querySelector('#title');
 const formAuthorInput = document.querySelector('#author');
 const formPagesInput = document.querySelector('#pages');
@@ -13,7 +14,7 @@ const formAddBtn = document.querySelector('#add-btn');
 const formCancelBtn = document.querySelector('#cancel-btn');
 
 // Event listeners
-addNewBookBtn.addEventListener('click', openForm);
+addNewBookBtn.addEventListener('click', addNewBook);
 formAddBtn.addEventListener('click', addBook);
 formCancelBtn.addEventListener('click', closeForm);
 
@@ -26,6 +27,12 @@ function Book(title, author, pages, isRead){
     this.author = author
     this.pages = pages
     this.isRead = isRead
+}
+
+function addNewBook(){
+    formHeader.textContent = 'Add book';
+    formAddBtn.textContent = 'Add';
+    openForm();
 }
 
 // Function for the add button in the pop-up form
@@ -43,16 +50,29 @@ function addBook(){
 
     if(bookTitle == '' ||
         bookAuthor == '' ||
-        bookPages == '' ||
-        bookHaveRead === ''){
+        bookPages == ''){
         alert('Form incomplete!');
         return;
     }
 
     const book = new Book(bookTitle, bookAuthor, bookPages, bookHaveRead);
+    if(checkBook(book) === true) {
+        return;
+    }
     myLibrary.push(book);
     closeForm();
     displayBooks();
+}
+
+function checkBook(newBook){
+    myLibrary.forEach(book => {
+        if(book.title === newBook.title && book.author === newBook.author){
+            alert('That book is already in the library!');
+            return true;
+        }
+        else return false;
+    })
+    
 }
 
 // Function that 'pops-up' the form
@@ -78,7 +98,8 @@ function displayBooks(){
         const bookCardTitle = document.createElement('p');
         const bookCardAuthor = document.createElement('p');
         const bookCardPages = document.createElement('p');
-        const bookCardIsRead = document.createElement('button');
+        const bookCardIsRead = document.createElement('p');
+        const editBtn = document.createElement('button');
         const removeBtn = document.createElement('button');
 
         bookCard.classList.add('book-card');
@@ -87,18 +108,28 @@ function displayBooks(){
         bookCardAuthor.textContent = `Author: ${book.author}`;
         bookCardPages.textContent = `Pages: ${book.pages}`;
         bookCardIsRead.textContent = book.isRead;
+        editBtn.textContent = 'Edit';
         removeBtn.textContent = 'Remove';
 
         removeBtn.style.background = 'rgb(255, 123, 123)';
+
+        editBtn.addEventListener('click', ()=>{
+            formHeader.textContent = 'Edit book';
+            formAddBtn.textContent = 'Edit';
+            openForm();
+        });
+
         removeBtn.addEventListener('click', ()=>{
             listOfBooks.removeChild(bookCard);
-        })
+            myLibrary = myLibrary.filter(value => value !== book);
+        });
 
         bookCard.appendChild(bookCardTitle);
         bookCard.appendChild(bookCardAuthor);
         bookCard.appendChild(bookCardPages);
         bookCard.appendChild(bookCardIsRead);
+        bookCard.appendChild(editBtn);
         bookCard.appendChild(removeBtn);
         listOfBooks.appendChild(bookCard);
-    })
+    });
 }
