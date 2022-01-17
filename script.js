@@ -14,7 +14,7 @@ const formAddBtn = document.querySelector('#add-btn');
 const formCancelBtn = document.querySelector('#cancel-btn');
 
 // Event listeners
-addNewBookBtn.addEventListener('click', addNewBook);
+addNewBookBtn.addEventListener('click', openForm);
 formAddBtn.addEventListener('click', addBook);
 formCancelBtn.addEventListener('click', closeForm);
 
@@ -27,12 +27,6 @@ function Book(title, author, pages, isRead){
     this.author = author
     this.pages = pages
     this.isRead = isRead
-}
-
-function addNewBook(){
-    formHeader.textContent = 'Add book';
-    formAddBtn.textContent = 'Add';
-    openForm();
 }
 
 // Function for the add button in the pop-up form
@@ -55,24 +49,26 @@ function addBook(){
         return;
     }
 
-    const book = new Book(bookTitle, bookAuthor, bookPages, bookHaveRead);
-    if(checkBook(book) === true) {
+    const newBook = new Book(bookTitle, bookAuthor, bookPages, bookHaveRead);
+    if(isInTheLibrary(newBook)){
+        alert('That book is already in the library!');
         return;
     }
-    myLibrary.push(book);
+    myLibrary.push(newBook);
     closeForm();
     displayBooks();
 }
 
-function checkBook(newBook){
-    myLibrary.forEach(book => {
-        if(book.title === newBook.title && book.author === newBook.author){
-            alert('That book is already in the library!');
-            return true;
+// Function that checks if a book is already in the library
+function isInTheLibrary(newBook){
+    let inTheLib = false;
+    myLibrary.forEach(oldBook => {
+        if(oldBook.title === newBook.title && oldBook.author === newBook.author){
+            inTheLib = true;
         }
-        else return false;
-    })
-    
+    });
+    if(inTheLib == false) return false;
+    else return true;
 }
 
 // Function that 'pops-up' the form
@@ -99,7 +95,7 @@ function displayBooks(){
         const bookCardAuthor = document.createElement('p');
         const bookCardPages = document.createElement('p');
         const bookCardIsRead = document.createElement('p');
-        const editBtn = document.createElement('button');
+        const changeStatusBtn = document.createElement('button');
         const removeBtn = document.createElement('button');
 
         bookCard.classList.add('book-card');
@@ -107,18 +103,19 @@ function displayBooks(){
         bookCardTitle.textContent = `Title: ${book.title}`;
         bookCardAuthor.textContent = `Author: ${book.author}`;
         bookCardPages.textContent = `Pages: ${book.pages}`;
-        bookCardIsRead.textContent = book.isRead;
-        editBtn.textContent = 'Edit';
+        bookCardIsRead.textContent = `Status: ${book.isRead}`;
+        changeStatusBtn.textContent = 'Change status';
         removeBtn.textContent = 'Remove';
-
         removeBtn.style.background = 'rgb(255, 123, 123)';
 
-        editBtn.addEventListener('click', ()=>{
-            formHeader.textContent = 'Edit book';
-            formAddBtn.textContent = 'Edit';
-            openForm();
+        // Function for every book that changes the read status when clicked
+        changeStatusBtn.addEventListener('click', ()=>{
+            if(book.isRead == 'Read') book.isRead = 'Not read';
+            else book.isRead = 'Read';
+            bookCardIsRead.textContent = `Status: ${book.isRead}`;
         });
 
+        // Function that removes the corresponding book when clicked
         removeBtn.addEventListener('click', ()=>{
             listOfBooks.removeChild(bookCard);
             myLibrary = myLibrary.filter(value => value !== book);
@@ -128,7 +125,7 @@ function displayBooks(){
         bookCard.appendChild(bookCardAuthor);
         bookCard.appendChild(bookCardPages);
         bookCard.appendChild(bookCardIsRead);
-        bookCard.appendChild(editBtn);
+        bookCard.appendChild(changeStatusBtn);
         bookCard.appendChild(removeBtn);
         listOfBooks.appendChild(bookCard);
     });
