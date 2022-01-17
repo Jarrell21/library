@@ -41,10 +41,11 @@ button:hover {
 }
 
 .list-of-books {
-  width: 900px;
+  min-width: 250px;
+  max-width: 900px;
   min-height: 200px;
   display: grid;
-  grid-template-columns: repeat(auto-fill, 200px);
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
   padding: 20px;
   background-color: teal;
@@ -116,4 +117,22 @@ input[type="radio"] {
 
 #add-btn {
   background-color: rgb(255, 123, 123);
+}
+
+@media screen and (max-width: 920px) {
+  .list-of-books {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 660px) {
+  .list-of-books {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 445px) {
+  .list-of-books {
+    grid-template-columns: repeat(1, 1fr);
+  }
 }
