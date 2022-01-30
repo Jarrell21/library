@@ -21,12 +21,14 @@ formCancelBtn.addEventListener('click', closeForm);
 // Storage for all the books added
 let myLibrary = [];
 
-// Constructor for the books
-function Book(title, author, pages, isRead){
-    this.title = title
-    this.author = author
-    this.pages = pages
-    this.isRead = isRead
+// Class book with its constructor
+class Book {
+    constructor(title, author, pages, isRead){
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.isRead = isRead
+    }
 }
 
 // Function for the add button in the pop-up form
